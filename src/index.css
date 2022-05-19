@@ -7,3 +7,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  font-family: "Lexend Peta", sans-serif;
+  background-color: #fdf2f8;
+  letter-spacing: -1px;
+}
+.logo {
+  font-family: "Niconne", cursive;
+}
