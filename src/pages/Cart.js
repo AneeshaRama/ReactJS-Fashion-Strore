@@ -42,9 +42,11 @@ const Cart = () => {
                   </span>{" "}
                   : ${totalAmount}
                 </p>
-                <button className="bg-pink-700 hover:bg-pink-50 rounded-lg text-white transition duration-300 ease-linear mt-5 border-2 border-pink-600 font-bold hover:text-pink-700 p-3">
-                  Checkout Now
-                </button>
+                <Link to={"/checkout"}>
+                  <button className="bg-pink-700 hover:bg-pink-50 rounded-lg text-white transition duration-300 ease-linear mt-5 border-2 border-pink-600 font-bold hover:text-pink-700 p-3">
+                    Checkout Now
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

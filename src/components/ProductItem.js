@@ -2,10 +2,7 @@ import React, { useContext } from "react";
 import { CartContext } from "../context/cartContext";
 
 const ProductItem = ({ item }) => {
-  const {
-    cartState: { cart },
-    cartDispatch,
-  } = useContext(CartContext);
+  const { cartState, cartDispatch } = useContext(CartContext);
 
   const addToCart = () => {
     cartDispatch({
@@ -16,7 +13,7 @@ const ProductItem = ({ item }) => {
 
   return (
     <>
-      <div className="mt-5 single flex flex-col mx-auto w-[275px] sm:w-60 border-2 border-pink-500 shadow-xl hover:shadow-gray-400  rounded-xl hover:scale-110 transition-transform duration-500 ease-in group">
+      <div className="mt-5 single flex flex-col mx-auto w-[275px] sm:w-60  shadow-xl hover:shadow-gray-400  rounded-xl hover:scale-110 transition-transform duration-500 ease-in group">
         <div>
           <img
             src={item.imageUrl}

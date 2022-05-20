@@ -13,6 +13,7 @@ import Footer from "./components/Footer";
 import Categories from "./pages/Categories";
 import { SnackbarProvider } from "notistack";
 import { Slide } from "@mui/material";
+import Checkout from "./pages/Checkout";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
               <Route exact path="/explore" element={<Categories />} />
               <Route exact path="/login" element={<Login />} />
               <Route exact path="/cart" element={<Cart />} />
+              <Route exact path="/checkout" element={<Checkout />} />
               <Route exact path="/shop/mens" element={<Mens />} />
               <Route exact path="/shop/womens" element={<Womens />} />
               <Route exact path="/shop/hats" element={<Hats />} />

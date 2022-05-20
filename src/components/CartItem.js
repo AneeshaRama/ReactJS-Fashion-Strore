@@ -3,10 +3,7 @@ import { Delete } from "@mui/icons-material";
 import { CartContext } from "../context/cartContext";
 
 const CartItem = ({ item }) => {
-  const {
-    cartState: { cart },
-    cartDispatch,
-  } = useContext(CartContext);
+  const { cartState, cartDispatch } = useContext(CartContext);
 
   const removeItemFromCart = () => {
     cartDispatch({

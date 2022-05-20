@@ -72,17 +72,6 @@ const Navbar = () => {
                       <h3 className="font-semibold">Home</h3>
                     </div>
                   </Link>
-                  <Link to={"/explore"}>
-                    <div
-                      onClick={() => setOpenDrawer(false)}
-                      className="flex items-center mt-10 space-x-10 text-gray-700"
-                    >
-                      <div>
-                        <Explore />
-                      </div>
-                      <h3 className="font-semibold">Explore</h3>
-                    </div>
-                  </Link>
 
                   {user !== null ? (
                     <div
@@ -117,11 +106,7 @@ const Navbar = () => {
                   Home
                 </li>
               </Link>
-              <Link to="/explore">
-                <li className="cursor-pointer hover:text-pink-600 transition transform duration-200">
-                  Explore
-                </li>
-              </Link>
+
               {user !== null ? (
                 <li
                   onClick={logoutHandler}
