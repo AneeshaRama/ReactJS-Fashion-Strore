@@ -3,7 +3,9 @@ import React from "react";
 const Cart = () => {
   return (
     <>
-      <h1>Cart Page</h1>
+      <div className="h-[80vh]">
+        <h1>Cart is empty</h1>
+      </div>
     </>
   );
 };

@@ -1,12 +1,42 @@
-import React, { useState } from "react";
-import { Home, Menu, ShoppingBasket } from "@mui/icons-material";
-import { Drawer, useTheme, useMediaQuery, Badge, Avatar } from "@mui/material";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import {
+  Explore,
+  Home,
+  Logout,
+  Menu,
+  Person,
+  ShoppingBasket,
+} from "@mui/icons-material";
+import { Drawer, useTheme, useMediaQuery, Avatar } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../context/userContext";
+import { signOutUser } from "../firebase";
+import { useSnackbar } from "notistack";
 
 const Navbar = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
+  const { state, dispatch } = useContext(UserContext);
+  const navigate = useNavigate();
+  const { user } = state;
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+  const { enqueueSnackbar } = useSnackbar();
+
+  const logoutHandler = async () => {
+    await signOutUser();
+    enqueueSnackbar("You have successfully logged out", {
+      variant: "success",
+      autoHideDuration: 3000,
+    });
+    window.localStorage.removeItem("user");
+    dispatch({
+      type: "LOGOUT",
+    });
+    setOpenDrawer(false);
+
+    navigate("/");
+  };
+
   return (
     <>
       <nav className="flex items-center justify-between h-20  max-w-6xl mx-auto">
@@ -37,17 +67,41 @@ const Navbar = () => {
                       <h3 className="font-semibold">Home</h3>
                     </div>
                   </Link>
-                  <Link to={"/login"}>
+                  <Link to={"/explore"}>
                     <div
                       onClick={() => setOpenDrawer(false)}
-                      className="flex items-center mt-10 mb-5 space-x-5 text-gray-700"
+                      className="flex items-center mt-10 space-x-10 text-gray-700"
                     >
                       <div>
-                        <Avatar>A</Avatar>
+                        <Explore />
                       </div>
-                      <h3 className="font-semibold">Login</h3>
+                      <h3 className="font-semibold">Explore</h3>
                     </div>
                   </Link>
+
+                  {user !== null ? (
+                    <div
+                      onClick={logoutHandler}
+                      className="flex items-center mt-16 mb-5 space-x-5 text-gray-700"
+                    >
+                      <div>
+                        <Logout />
+                      </div>
+                      <h3 className="font-semibold">Logout</h3>
+                    </div>
+                  ) : (
+                    <Link to={"/login"}>
+                      <div
+                        onClick={() => setOpenDrawer(false)}
+                        className="flex items-center mt-16 mb-5 space-x-5 text-gray-700"
+                      >
+                        <div>
+                          <Person />
+                        </div>
+                        <h3 className="font-semibold">Login</h3>
+                      </div>
+                    </Link>
+                  )}
                 </div>
               </Drawer>
             </>
@@ -58,11 +112,25 @@ const Navbar = () => {
                   Home
                 </li>
               </Link>
-              <Link to="/login">
+              <Link to="/explore">
                 <li className="cursor-pointer hover:text-pink-600 transition transform duration-200">
-                  Login
+                  Explore
                 </li>
               </Link>
+              {user !== null ? (
+                <li
+                  onClick={logoutHandler}
+                  className="cursor-pointer hover:text-pink-600 transition transform duration-200"
+                >
+                  Logout
+                </li>
+              ) : (
+                <Link to="/login">
+                  <li className="cursor-pointer hover:text-pink-600 transition transform duration-200">
+                    Login
+                  </li>
+                </Link>
+              )}
             </>
           )}
 
