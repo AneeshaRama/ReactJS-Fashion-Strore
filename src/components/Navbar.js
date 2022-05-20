@@ -10,12 +10,17 @@ import {
 import { Drawer, useTheme, useMediaQuery, Avatar } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/userContext";
+import { CartContext } from "../context/cartContext";
 import { signOutUser } from "../firebase";
 import { useSnackbar } from "notistack";
 
 const Navbar = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const { state, dispatch } = useContext(UserContext);
+  const {
+    cartState: { cart },
+    cartDispatch,
+  } = useContext(CartContext);
   const navigate = useNavigate();
   const { user } = state;
   const theme = useTheme();
@@ -138,7 +143,7 @@ const Navbar = () => {
             <div className="relative">
               <ShoppingBasket className="text-2xl cursor-pointer hover:text-pink-600 transition transform duration-200" />
               <div className="absolute bg-pink-600 text-xs w-5 h-5 flex justify-center items-center animate-bounce -top-1 -right-2 rounded-full top- text-white">
-                0
+                {cart.length}
               </div>
             </div>
           </Link>

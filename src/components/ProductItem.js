@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CartContext } from "../context/cartContext";
 
 const ProductItem = ({ item }) => {
+  const {
+    cartState: { cart },
+    cartDispatch,
+  } = useContext(CartContext);
+
+  const addToCart = () => {
+    cartDispatch({
+      type: "ADD_TO_CART",
+      payload: item,
+    });
+  };
+
   return (
     <>
       <div className="mt-5 single flex flex-col mx-auto w-[275px] sm:w-60 border-2 border-pink-500 shadow-xl hover:shadow-gray-400  rounded-xl hover:scale-110 transition-transform duration-500 ease-in group">
@@ -15,9 +28,13 @@ const ProductItem = ({ item }) => {
           <h1 className="font-bold text-lg text-gray-700">{item.name}</h1>
         </div>
         <div className="flex justify-between items-center p-3">
-          <button className="text-pink-700 font-semibold text-sm border-2 border-pink-700 p-2 rounded-lg  group-hover:bg-pink-700 group-hover:text-white transition-transform duration-300 ease-in-out group-hover:border-white">
+          <button
+            className="text-pink-700 font-semibold text-sm border-2 border-pink-700 p-2 rounded-lg  group-hover:bg-pink-700 group-hover:text-white transition-transform duration-300 ease-in-out group-hover:border-white"
+            onClick={addToCart}
+          >
             AddtoCart
           </button>
+
           <p className="text-gray-700">${item.price}</p>
         </div>
       </div>
