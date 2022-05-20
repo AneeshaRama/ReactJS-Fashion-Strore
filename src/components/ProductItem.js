@@ -1,13 +1,19 @@
 import React, { useContext } from "react";
 import { CartContext } from "../context/cartContext";
+import { useSnackbar } from "notistack";
 
 const ProductItem = ({ item }) => {
-  const { cartState, cartDispatch } = useContext(CartContext);
+  const { cartDispatch } = useContext(CartContext);
+  const { enqueueSnackbar } = useSnackbar();
 
   const addToCart = () => {
     cartDispatch({
       type: "ADD_TO_CART",
       payload: item,
+    });
+    enqueueSnackbar(`Added ${item.name} to your cart`, {
+      variant: "success",
+      autoHideDuration: 3000,
     });
   };
 

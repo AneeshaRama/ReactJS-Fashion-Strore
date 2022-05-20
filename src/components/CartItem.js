@@ -1,14 +1,20 @@
 import React, { useContext } from "react";
 import { Delete } from "@mui/icons-material";
 import { CartContext } from "../context/cartContext";
+import { useSnackbar } from "notistack";
 
 const CartItem = ({ item }) => {
-  const { cartState, cartDispatch } = useContext(CartContext);
+  const { cartDispatch } = useContext(CartContext);
+  const { enqueueSnackbar } = useSnackbar();
 
   const removeItemFromCart = () => {
     cartDispatch({
       type: "REMOVE_FROM_CART",
       payload: item,
+    });
+    enqueueSnackbar(`Removed ${item.name} from your cart!`, {
+      variant: "warning",
+      autoHideDuration: 3000,
     });
   };
 
