@@ -127,9 +127,11 @@ const Navbar = () => {
           <Link to={"/cart"}>
             <div className="relative">
               <ShoppingBasket className="text-2xl cursor-pointer hover:text-pink-600 transition transform duration-200" />
-              <div className="absolute bg-pink-600 text-xs w-5 h-5 flex justify-center items-center animate-bounce -top-1 -right-2 rounded-full top- text-white">
-                {cart.length}
-              </div>
+              {cart.length > 0 && (
+                <div className="absolute bg-pink-600 text-xs w-5 h-5 flex justify-center items-center animate-bounce -top-1 -right-2 rounded-full top- text-white">
+                  {cart.length}
+                </div>
+              )}
             </div>
           </Link>
 

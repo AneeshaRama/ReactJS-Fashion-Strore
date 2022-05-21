@@ -3,7 +3,10 @@ import { CartContext } from "../context/cartContext";
 import { useSnackbar } from "notistack";
 
 const ProductItem = ({ item }) => {
-  const { cartDispatch } = useContext(CartContext);
+  const {
+    cartState: { cart },
+    cartDispatch,
+  } = useContext(CartContext);
   const { enqueueSnackbar } = useSnackbar();
 
   const addToCart = () => {
@@ -13,6 +16,17 @@ const ProductItem = ({ item }) => {
     });
     enqueueSnackbar(`Added ${item.name} to your cart`, {
       variant: "success",
+      autoHideDuration: 3000,
+    });
+  };
+
+  const removeItemFromCart = () => {
+    cartDispatch({
+      type: "REMOVE_FROM_CART",
+      payload: item,
+    });
+    enqueueSnackbar(`Removed ${item.name} from your cart!`, {
+      variant: "warning",
       autoHideDuration: 3000,
     });
   };
@@ -31,12 +45,25 @@ const ProductItem = ({ item }) => {
           <h1 className="font-bold text-lg text-gray-700">{item.name}</h1>
         </div>
         <div className="flex justify-between items-center p-3">
-          <button
-            className="text-pink-700 font-semibold text-sm border-2 border-pink-700 p-2 rounded-lg  group-hover:bg-pink-700 group-hover:text-white transition-transform duration-300 ease-in-out group-hover:border-white"
-            onClick={addToCart}
-          >
-            AddtoCart
-          </button>
+          {cart.some((p) => p.id === item.id) ? (
+            <>
+              <button
+                className=" font-semibold text-sm border-2 border-pink-700 p-2 rounded-lg  hover:bg-pink-50 bg-pink-700 hover:text-pink-700 text-white transition-transform duration-300 ease-in-out hover:border-pink-700"
+                onClick={removeItemFromCart}
+              >
+                Remove Item
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className="text-pink-700 font-semibold text-sm border-2 border-pink-700 p-2 rounded-lg  group-hover:bg-pink-700 group-hover:text-white transition-transform duration-300 ease-in-out group-hover:border-white"
+                onClick={addToCart}
+              >
+                AddtoCart
+              </button>
+            </>
+          )}
 
           <p className="text-gray-700">${item.price}</p>
         </div>
